@@ -1,8 +1,8 @@
 {
-	"name": "sfdx-visualizer",
-	"author": "Ronny Rokitta, Constantin Schlusche",
-	"displayName": "SFDX Visualizer",
-	"description": "This Extension visualizes the package dependencies of a Salesforce SFDX project",
+  "name": "sfdx-project-visualizer",
+  "author": "Constantin Schlusche, Ronny Rokitta",
+	"displayName": "sfdx-project-visualizer",
+	"description": "Visualizes structure and dependencies in a sfdx project",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.63.0"
@@ -11,25 +11,29 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:sfdx-visualizer.helloWorld"
+        "onCommand:sfdx-project-visualizer.visualizeSfdxProject"
 	],
-	"main": "./dist/extension.js",
+	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "sfdx-visualizer.helloWorld",
-				"title": "Hello World"
+				"command": "sfdx-project-visualizer.visualizeSfdxProject",
+				"title": "Visualize Project Structure"
 			}
-		]
+		], "menus": {
+			"explorer/context": [
+				{"command": "sfdx-project-visualizer.visualizeSfdxProject", "group": "z_commands", "when": "resourceFilename == sfdx-project.json"
+				}
+			], 
+			"editor/context": [{"command": "sfdx-project-visualizer.visualizeSfdxProject","when": "resourceFilename == sfdx-project.json"}],
+			"touchBar": [{"command": "sfdx-project-visualizer.visualizeSfdxProject"}]
+		}
 	},
 	"scripts": {
-		"vscode:prepublish": "npm run package",
-		"compile": "webpack",
-		"watch": "webpack --watch",
-		"package": "webpack --mode production --devtool hidden-source-map",
-		"compile-tests": "tsc -p . --outDir out",
-		"watch-tests": "tsc -p . -w --outDir out",
-		"pretest": "npm run compile-tests && npm run compile && npm run lint",
+		"vscode:prepublish": "yarn run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "yarn run compile && yarn run lint",
 		"lint": "eslint src --ext ts",
 		"test": "node ./out/test/runTest.js"
 	},
@@ -44,9 +48,6 @@
 		"glob": "^7.1.7",
 		"mocha": "^9.1.3",
 		"typescript": "^4.4.4",
-		"ts-loader": "^9.2.5",
-		"webpack": "^5.52.1",
-		"webpack-cli": "^4.8.0",
 		"@vscode/test-electron": "^1.6.2"
 	}
 }

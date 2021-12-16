@@ -1,6 +1,6 @@
-# sfdx-visualizer README
+# sfdx-project-visualizer README
 
-This is the README for your extension "sfdx-visualizer". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "sfdx-project-visualizer". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 

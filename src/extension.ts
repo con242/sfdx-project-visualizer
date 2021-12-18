@@ -24,7 +24,10 @@ export function activate(context: vscode.ExtensionContext) {
       const panel = vscode.window.createWebviewPanel(
         "sfdxVisualizer",
         "SFDX Visualizer",
-        vscode.ViewColumn.One
+        vscode.ViewColumn.One,
+        {
+          enableScripts: true,
+        }
       );
       panel.webview.html = html;
     }

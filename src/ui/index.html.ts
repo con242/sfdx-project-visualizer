@@ -10,7 +10,6 @@ export function getHtml(data: string, layout: string): string {
       nonce="plotly-graph"
       charset="utf-8"
     ></script>
-
     <title>Project Visualizer</title>
   </head>
   <body>

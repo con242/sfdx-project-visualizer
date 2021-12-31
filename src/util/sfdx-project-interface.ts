@@ -5,6 +5,7 @@ export interface SfdxProject extends Object {
   sourceApiVersion: string;
   packageAliases: PackageAliases;
   plugins: Plugins;
+  [x: string]: any;
 }
 export interface PackageDirectoriesEntity {
   path?: string;
@@ -17,10 +18,12 @@ export interface PackageDirectoriesEntity {
   ignoreOnStage?: string[] | null;
   skipCoverageValidation?: boolean | null;
   postDeploymentScript?: string | null;
+  [x: string]: any;
 }
 export interface DependenciesEntity {
   package: string;
   versionNumber?: string | null;
+  [x: string]: any;
 }
 export interface PackageAliases {
   [x: string]: any;

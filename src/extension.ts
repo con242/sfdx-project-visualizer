@@ -1,8 +1,9 @@
+import { fstat } from "fs";
 import * as vscode from "vscode";
 import { getHtml } from "./ui/index.html";
 import buildSunburstData from "./ui/sunburst-data";
 import { layout } from "./ui/sunburst-layout";
-
+import * as fs from "fs";
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -17,22 +18,48 @@ export function activate(context: vscode.ExtensionContext) {
     "sfdx-project-visualizer.visualizeSfdxProject",
     (uri: vscode.Uri) => {
       // The code you place here will be executed every time your command is executed
-      vscode.window.showInformationMessage("Showing SFDX Project Structure");
-      const panel = vscode.window.createWebviewPanel(
-        "sfdxVisualizer",
-        "SFDX Visualizer",
-        vscode.ViewColumn.One,
-        {
-          enableScripts: true,
-        }
-      );
+      if (vscode.workspace.workspaceFolders) {
+        // get URI of SFDX Project JSOn
 
-      vscode.workspace.fs.readFile(uri).then((document) => {
-        panel.webview.html = getHtml(
-          JSON.stringify(buildSunburstData(document.toString())),
-          JSON.stringify(layout)
+        let sfdxUri: vscode.Uri = vscode.Uri.joinPath(
+          vscode.workspace.workspaceFolders[0].uri,
+          "sfdx-project.json"
         );
-      });
+        let validUri: boolean = true;
+        try {
+          console.log(
+            "sfdx Project found! ",
+            JSON.parse(fs.readFileSync(sfdxUri.path).toString())
+          );
+          validUri = true;
+        } catch {
+          validUri = false;
+          vscode.window.showErrorMessage(
+            "No Valid sfdx-project.json found! Validate the JSON and try again"
+          );
+        }
+        if (validUri) {
+          vscode.window.showInformationMessage(
+            "Showing SFDX Project Structure"
+          );
+          const panel = vscode.window.createWebviewPanel(
+            "sfdxVisualizer",
+            "SFDX Visualizer",
+            vscode.ViewColumn.One,
+            {
+              enableScripts: true,
+            }
+          );
+          vscode.workspace.fs.readFile(sfdxUri).then((document) => {
+            panel.webview.html = getHtml(
+              JSON.stringify(buildSunburstData(document.toString(), uri)),
+              JSON.stringify(layout)
+            );
+          });
+        }
+      } else {
+        vscode.window.showErrorMessage("No Workspace found!");
+      }
     }
   );
 

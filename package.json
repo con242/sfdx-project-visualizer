@@ -1,6 +1,12 @@
 {
 	"name": "sfdx-project-visualizer",
 	"author": "Constantin Schlusche",
+	"keywords": [
+		"Salesforce",
+		"Unlocked Packages",
+		"SFDX",
+		"Visualize"
+	],
 	"publisher": "con242",
 	"displayName": "sfdx-project-visualizer",
 	"repository": "github:con242/sfdx-project-visualizer",

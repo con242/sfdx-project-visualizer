@@ -7,6 +7,7 @@ This plugin helps developers to keep an overview about their salesforce project 
 
  - Right-Click on sfdx-project.json to visualize the project structure
  - Touchbar support for mac
+![Demo](/screenshots/example.gif?raw=true)
 
 ## Requirements
 

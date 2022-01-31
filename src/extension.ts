@@ -1,9 +1,9 @@
-import { fstat } from "fs";
 import * as vscode from "vscode";
 import { getHtml } from "./ui/index.html";
 import buildSunburstData from "./ui/sunburst-data";
 import { layout } from "./ui/sunburst-layout";
 import * as fs from "fs";
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -29,7 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
         try {
           console.log(
             "sfdx Project found! ",
-            JSON.parse(fs.readFileSync(sfdxUri.path).toString())
+            JSON.parse(fs.readFileSync(sfdxUri.fsPath).toString())
           );
           validUri = true;
         } catch {

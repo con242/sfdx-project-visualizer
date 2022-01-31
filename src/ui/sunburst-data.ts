@@ -60,7 +60,7 @@ export default function buildSunburstData(
           vscode.workspace.workspaceFolders[0].uri,
           item.id
         );
-        let allFiles = getAllFiles(uri.path);
+        let allFiles = getAllFiles(uri.fsPath);
         item.value = allFiles
           .filter((file) => file.endsWith("-meta.xml"))
           .length.toString();
